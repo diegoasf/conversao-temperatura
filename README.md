@@ -23,7 +23,10 @@ Antes de executar o script de automação, certifique-se de que você tem os seg
 1.  **WSL (Windows Subsystem for Linux)**: Obviamente, você precisa ter o WSL instalado e uma distribuição Linux funcional (como Ubuntu).
 2.  **Git**: Necessário para clonar este repositório. O script tentará instalar o Git se não o encontrar, mas é bom já tê-lo.
     * Para verificar: `git --version`
-    * Para instalar (em distros baseadas em Debian/Ubuntu): `sudo apt update && sudo apt install git`
+    * Para instalar (em distros baseadas em Debian/Ubuntu, conforme o script):
+        ```bash
+        sudo apt-get update -qq && sudo apt-get install -y git
+        ```
 3.  **Permissões `sudo`**: O script de automação usará `sudo` para instalar pacotes (como Git e Node.js, se necessário). Certifique-se de que seu usuário no WSL pode executar comandos com `sudo`.
 
 ## Como Executar (Usando o Script de Automação no WSL)
@@ -63,5 +66,3 @@ Este projeto inclui um script chamado `iniciar_app_direto_wsl.sh` que automatiza
 
 6.  **Para parar a aplicação:**
     Pressione `Ctrl+C` no terminal onde o script `iniciar_app_direto_wsl.sh` está rodando.
-
-## Estrutura do Projeto (Opcional, mas útil)
