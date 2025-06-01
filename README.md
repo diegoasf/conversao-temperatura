@@ -33,7 +33,7 @@ Este projeto inclui um script chamado `iniciar_app_direto_wsl.sh` que automatiza
 1.  **Clone este repositório:**
     Abra seu terminal WSL, navegue até o diretório onde deseja clonar o projeto e execute:
     ```bash
-    git clone [https://github.com/diegoasf/conversao-temperatura.git](https://github.com/diegoasf/conversao-temperatura.git)
+    git clone https://github.com/diegoasf/conversao-temperatura.git
     ```
 
 2.  **Navegue até o diretório do projeto:**
