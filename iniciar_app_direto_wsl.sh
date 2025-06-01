@@ -97,22 +97,15 @@ else
     exit 1
 fi
 
-# 6. Iniciar a aplicação
-echo ">>> Iniciando a aplicação '$APP_NAME' com 'npm start'..."
-if [ -f "package.json" ]; then
-    # Verifica se o script 'start' existe no package.json
-    if npm run-script | grep -qw 'start'; then # -q para silencioso, -w para palavra exata
-        npm start # Este comando manterá o script rodando se for um servidor
-        echo ""
-        echo ">>> Aplicação '$APP_NAME' (se for um servidor) está rodando. Pressione Ctrl+C para parar. <<<"
-    else
-        echo "--- AVISO: Script 'npm start' não encontrado no package.json. ---"
-        echo "--- Verifique o package.json ou execute o arquivo principal manualmente (ex: node server.js). ---"
-    fi
+# 6. Iniciar a aplicação diretamente com 'node server.js'
+echo ">>> Iniciando a aplicação '$APP_NAME' com 'node server.js'..."
+if [ -f "server.js" ]; then
+    # Este comando manterá o script rodando se 'server.js' iniciar um servidor
+    node server.js
+    echo "" # Adiciona uma linha em branco após a aplicação parar (se não for contínua)
+    echo ">>> Aplicação '$APP_NAME' (se for um servidor) foi encerrada ou finalizou."
 else
-    echo "--- ERRO: package.json não encontrado. Não é possível iniciar a aplicação. ---"
+    echo "--- ERRO: server.js não encontrado em $(pwd)! Não é possível iniciar a aplicação."
+    echo "--- Verifique se o arquivo 'server.js' existe na raiz do projeto."
     exit 1
 fi
-
-echo ""
-echo ">>> Script WSL para '$APP_NAME' finalizado (se 'npm start' não for um processo contínuo ou se falhou)."
