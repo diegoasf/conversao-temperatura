@@ -109,3 +109,6 @@ else
     echo "--- Verifique se o arquivo 'server.js' existe na raiz do projeto."
     exit 1
 fi
+
+echo ""
+echo ">>> Script WSL para '$APP_NAME' finalizado."
