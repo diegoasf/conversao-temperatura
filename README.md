@@ -35,4 +35,8 @@ Este projeto inclui um script chamado `iniciar_app_direto_wsl.sh` que automatiza
     `http://localhost:8080`
 
 6.  **Para parar a aplicação:**
-    Pressione `Ctrl+C` no terminal onde o script `iniciar_app_direto_wsl.sh` está rodando.
+     Quando a aplicação é iniciada pelo script em segundo plano, ele informa o **PID (Process ID)** do processo Node.js. Para parar a aplicação, você usará esse PID com o comando `kill`.
+
+     Exemplo: Se o script informou `PID: 12345`
+     ```bash
+    kill 12345
