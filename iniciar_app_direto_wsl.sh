@@ -71,11 +71,8 @@ fi
 
 if [ "$NEEDS_NODE_INSTALL" = true ]; then
     echo ">>> Instalando/atualizando Node.js v${NODE_SETUP_VERSION} via NodeSource..."
-    # Pré-requisitos para NodeSource (curl, gnupg já devem estar do git, mas garantimos ca-certificates)
     sudo apt-get update -qq
-    sudo apt-get install -y ca-certificates curl # gnupg geralmente já vem ou é dependencia do curl/git
-    # Adiciona repositório NodeSource e instala Node.js
-    # O -E no sudo bash preserva o ambiente, o que pode ser útil.
+    sudo apt-get install -y ca-certificates curl
     curl -fsSL "https://deb.nodesource.com/setup_${NODE_SETUP_VERSION}" | sudo -E bash -
     sudo apt-get install -y nodejs
     echo ">>> Node.js instalado/atualizado."
@@ -97,13 +94,22 @@ else
     exit 1
 fi
 
-# 6. Iniciar a aplicação diretamente com 'node server.js'
-echo ">>> Iniciando a aplicação '$APP_NAME' com 'node server.js'..."
+# 6. Iniciar a aplicação em segundo plano com 'nohup' e '&'
+echo ">>> Iniciando a aplicação '$APP_NAME' em segundo plano com 'node server.js'..."
 if [ -f "server.js" ]; then
-    # Este comando manterá o script rodando se 'server.js' iniciar um servidor
-    node server.js
-    echo "" # Adiciona uma linha em branco após a aplicação parar (se não for contínua)
-    echo ">>> Aplicação '$APP_NAME' (se for um servidor) foi encerrada ou finalizou."
+    # Inicia o servidor com nohup, redireciona stdout e stderr para app.log, e roda em background (&)
+    nohup node server.js > app.log 2>&1 &
+
+    # Captura o PID (Process ID) do processo que acabou de ser iniciado em background
+    NODE_PID=$!
+
+    echo ""
+    echo ">>> Aplicação '$APP_NAME' iniciada em segundo plano com PID: $NODE_PID."
+    echo ">>> Os logs da aplicação estão sendo direcionados para o arquivo: $(pwd)/app.log"
+    echo ">>> Para ver os logs em tempo real, você pode usar o comando: tail -f app.log"
+    echo ">>> Para parar esta instância da aplicação, use o comando: kill $NODE_PID"
+    echo ">>> (Se você fechar este terminal WSL e reabrir, para parar a aplicação, "
+    echo ">>>  você precisará encontrar o PID novamente com 'pgrep -f server.js' ou 'ps aux | grep server.js' e usar 'kill SEU_PID')"
 else
     echo "--- ERRO: server.js não encontrado em $(pwd)! Não é possível iniciar a aplicação."
     echo "--- Verifique se o arquivo 'server.js' existe na raiz do projeto."
@@ -111,4 +117,4 @@ else
 fi
 
 echo ""
-echo ">>> Script WSL para '$APP_NAME' finalizado."
+echo ">>> Script WSL para '$APP_NAME' finalizado. A aplicação deve estar rodando em segundo plano."
