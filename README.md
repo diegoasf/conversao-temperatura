@@ -33,3 +33,6 @@ Este projeto inclui um script chamado `iniciar_app_direto_wsl.sh` que automatiza
 5.  **Acesse a aplicação:**
     Após o script iniciar a aplicação com sucesso, abra seu navegador e acesse:
     `http://localhost:8080`
+
+6.  **Para parar a aplicação:**
+    Pressione `Ctrl+C` no terminal onde o script `iniciar_app_direto_wsl.sh` está rodando.
